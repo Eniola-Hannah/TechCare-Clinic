@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "bootstrapform"
+    "techCare.userApp"
+    "techCare.paymentApp"
+    "techCare.servicesApp"
 ]
 
 MIDDLEWARE = [
