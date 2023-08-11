@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path, include
 from django.views.generic import TemplateView
 
 urlpatterns = [
@@ -9,4 +9,5 @@ urlpatterns = [
     path('about/', TemplateView.as_view(template_name='about.html'), name='about'),
     path('contact/', TemplateView.as_view(template_name='contact.html'), name='contact'),
     path('blog/', TemplateView.as_view(template_name='blog.html'), name='blog'),
+    re_path(r'^accounts/', include('django.contrib.auth.urls')),
 ]
