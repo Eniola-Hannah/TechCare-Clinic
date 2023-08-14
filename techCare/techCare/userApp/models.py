@@ -81,7 +81,8 @@ class Profile(models.Model):
     gender = models.CharField(max_length=11, unique=False, null=True)
     nationality = models.CharField(choices=countries, max_length=50, unique=False, null=True)
     state = models.CharField(choices=states, max_length=20, unique=False, null=True)
-    # identityImage in media folder, remember media folder takes uploading of anything, and it will be created automatically when the first customer upload,,,, mind you, you have to install pillow in order to use ImageField
+    # identityImage in media folder, remember media folder takes uploading of anything, and it will be created automatically when the first customer upload,,,,
+    # mind you, you have to install pillow in order to use ImageField
     means_of_identity = models.ImageField(upload_to="identityImage/", unique=False, null=True)
     # fileFiled actually takes not only image but document, file, pdf etc
     particulars = models.FileField(upload_to="particularsImage/", unique=False, null=True)
