@@ -5,7 +5,6 @@ from django.contrib.auth.forms import UserCreationForm
 
 class SignUpForm(UserCreationForm):
     # if you want to use django signup form, then put pass
-    # pass
     # you might decide to override the django signup form with these below code
     
     first_name = forms.CharField(max_length=30, required=False, help_text='Optional')
