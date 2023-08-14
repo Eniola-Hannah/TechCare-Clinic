@@ -67,4 +67,28 @@ class Profile(models.Model):
         ("O-", "O-"),
         ("AB", "AB"),
     ]
-    
+
+
+    # autoincrement but if not specified the name will be simply 'id'
+    profile_id = models.AutoField(primary_key=True)
+    # the next lines of code is just a relationship that connects this table to the auth_user table in the database though it doesn't make it one, the receiver function down will make it one
+    user = models.OneToOneField(User, on_delete=models.CASCADE) #on_delete.CASCADE will make sure you can't delete your profile on a user table when it is still has a foreign key in another table(remember it is oneToOne table), so you need to delete the foreign key then come back here to delete it
+    status = models.CharField(unique=False, max_length=20, null=True)
+    address = models.CharField(max_length=100, null=True, unique=False)
+    phone = models.CharField(max_length=11, null=True, unique=True)
+    email = models.EmailField(max_length=50, null=True, unique=True)
+    date_of_birth = models.DateField(unique=False, max_length=11, null=True)
+    gender = models.CharField(max_length=11, unique=False, null=True)
+    nationality = models.CharField(choices=countries, max_length=50, unique=False, null=True)
+    state = models.CharField(choices=states, max_length=20, unique=False, null=True)
+    # identityImage in media folder, remember media folder takes uploading of anything, and it will be created automatically when the first customer upload,,,, mind you, you have to install pillow in order to use ImageField
+    means_of_identity = models.ImageField(upload_to="identityImage/", unique=False, null=True)
+    # fileFiled actually takes not only image but document, file, pdf etc
+    particulars = models.FileField(upload_to="particularsImage/", unique=False, null=True)
+    profile_passport = models.ImageField(upload_to="profileImage/",  unique=False, null=True)
+    position = models.CharField(choices=position, max_length=25, unique=False, null=True)
+    department = models.CharField(choices=dept, max_length=25, unique=False, null=True)
+    marital_status = models.CharField(choices=ma_status, max_length=20, unique=False, null=True)
+    staff = models.BooleanField(default=False, unique=False)
+    blood_group = models.CharField(choices=blood_g, max_length=4, unique=False, null=True)
+    next_of_kin = models.CharField(unique=False, max_length=20, null=True)
