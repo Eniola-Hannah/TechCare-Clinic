@@ -92,3 +92,14 @@ class Profile(models.Model):
     staff = models.BooleanField(default=False, unique=False)
     blood_group = models.CharField(choices=blood_g, max_length=4, unique=False, null=True)
     next_of_kin = models.CharField(unique=False, max_length=20, null=True)
+
+
+    # Now this is where the magic happens, we will now define sign signals so our profile model will be automatically created and saved
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+        
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
