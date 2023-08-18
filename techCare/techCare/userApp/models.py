@@ -76,7 +76,7 @@ class Profile(models.Model):
     status = models.CharField(unique=False, max_length=20, null=True)
     address = models.CharField(max_length=100, null=True, unique=False)
     phone = models.CharField(max_length=11, null=True, unique=True)
-    email = models.EmailField(max_length=50, null=True, unique=True)
+    email = models.EmailField(max_length=50, null=True, unique=True, default="you@gmail.com")
     date_of_birth = models.DateField(unique=False, max_length=11, null=True)
     gender = models.CharField(max_length=11, unique=False, null=True)
     nationality = models.CharField(choices=countries, max_length=50, unique=False, null=True)

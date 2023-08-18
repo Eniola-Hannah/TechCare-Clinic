@@ -101,7 +101,7 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-dark">
                               <li><a class="dropdown-item" href="#">Action</a></li>
-                              <li><a class="dropdown-item" href="#">Another action</a></li>
+                              <li><a class="dropdown-item" href="{% url 'my_account' request.user.id %}">My Account</a></li>
                               <li><a class="dropdown-item" href="{% url 'password_change' %}">Change passsword</a></li>
                             </ul>
                           </li>

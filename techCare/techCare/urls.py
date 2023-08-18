@@ -12,4 +12,6 @@ urlpatterns = [
     path('blog/', TemplateView.as_view(template_name='blog.html'), name='blog'),
     re_path(r'^accounts/', include('django.contrib.auth.urls')),
     re_path(r'^accounts/signup/$', SignUpView.as_view(), name="signup"),
+    re_path(r'^userApp/', include('techCare.userApp.urls')),
+
 ]
