@@ -81,7 +81,7 @@
                 <a class="nav-link" href="{% url 'doctors' %}">Doctors</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="{% url 'blog' %}">News</a>
+                <a class="nav-link" href="{% url 'blog' %}">Services</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="{% url 'contact' %}">Contact</a>
@@ -103,11 +103,11 @@
                               <li><a class="dropdown-item" href="{% url 'my_account' request.user.id %}">My Account</a></li>
 
                               {% if request.user.is_superuser %}
-                              <li><a class="dropdown-item" href="{% url 'all_staff' staff %}">Staff Account</a></li>
+                              <li><a class="dropdown-item" href="{% url 'all_staff' 'staff' %}">Staff Account</a></li>
                               {% endif %}
-                              
+
                               {% if request.user.is_staff %}
-                              <li><a class="dropdown-item" href="{% url 'all_patient' patient %}">Patient Account</a></li>
+                              <li><a class="dropdown-item" href="{% url 'all_patient' 'patient' %}">Patient Account</a></li>
                               {% endif %}
                                           
                               <li><a class="dropdown-item" href="{% url 'password_change' %}">Change passsword</a></li>
