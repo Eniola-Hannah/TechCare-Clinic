@@ -100,8 +100,16 @@
                               Dropdown
                             </button>
                             <ul class="dropdown-menu dropdown-menu-dark">
-                              <li><a class="dropdown-item" href="#">Action</a></li>
                               <li><a class="dropdown-item" href="{% url 'my_account' request.user.id %}">My Account</a></li>
+
+                              {% if request.user.is_superuser %}
+                              <li><a class="dropdown-item" href="{% url 'all_staff' staff %}">Staff Account</a></li>
+                              {% endif %}
+                              
+                              {% if request.user.is_staff %}
+                              <li><a class="dropdown-item" href="{% url 'all_patient' patient %}">Patient Account</a></li>
+                              {% endif %}
+                                          
                               <li><a class="dropdown-item" href="{% url 'password_change' %}">Change passsword</a></li>
                             </ul>
                           </li>
