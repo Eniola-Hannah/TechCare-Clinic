@@ -35,5 +35,5 @@ def createService(request):
     
 
 @login_required
-def editServices(requestm serv_id):
+def editServices(request, serv_id):
     pass
