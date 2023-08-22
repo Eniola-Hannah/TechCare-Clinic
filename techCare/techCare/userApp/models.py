@@ -90,9 +90,9 @@ class Profile(models.Model):
     position = models.CharField(choices=position, max_length=25, unique=False, null=True)
     department = models.CharField(choices=dept, max_length=25, unique=False, null=True)
     marital_status = models.CharField(choices=ma_status, max_length=20, unique=False, null=True)
-    staff = models.BooleanField(default=False, unique=False)
     blood_group = models.CharField(choices=blood_g, max_length=4, unique=False, null=True)
     next_of_kin = models.CharField(unique=False, max_length=20, null=True)
+    staff = models.BooleanField(default=False, unique=False)
 
 
     # Now this is where the magic happens, we will now define sign signals so our profile model will be automatically created and saved

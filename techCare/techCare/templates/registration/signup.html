@@ -9,14 +9,15 @@
         <div class="slider-active">
             <div class="single-slider">
                 <div class="slider-bg">
-                <p>Sign Up</p>
+                <h1 class="text-center">SIGN UP</h3>
                 <form method="POST">
                     {% csrf_token %}
                     {% load bootstrap %}
                     {{form |bootstrap_horizontal:'col-lg-6'}}
 
-                    <input class="bc-white mt-2 ml-2 loginbutton" type="submit" value="Sign Up">
-                </form>
+                    <div class="d-flex justify-content-center mt-3">
+                        <input class='btn btn-primary me-3 mb-3' type='submit' value='Sign Up'>
+                    </div>                </form>
                 </div> 
             </div> <!-- row -->
         </div> <!-- contact box -->

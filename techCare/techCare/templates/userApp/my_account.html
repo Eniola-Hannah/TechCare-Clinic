@@ -163,7 +163,7 @@
                                 <div class="field">
                                     <label class="label"><h3> Blood Group</h3></label>
                                     <div class="control">
-                                        {{profile.next_of_kin}}
+                                        {{profile.blood_group}}
                                     </div>
                                 </div>
                                 <hr>
@@ -179,12 +179,12 @@
                                 {% if request.user.is_superuser %}
                                     <div class="field">
                                         <div class="control">
-                                            <a href="#">
-                                                <button type="submit" class="btn btn-success"> Edit Account</button>
+                                            <a href="{% url 'edit_account' profile.user_id %}">
+                                                <button type="submit" class="btn btn-primary"> Edit Account</button>
                                             </a>
                                             
-                                            {% comment %} <a href="{% url 'deactivate_profile' profile.user_id %}"> {% endcomment %}
-                                               <button type="submit" class="btn btn-danger">
+                                            <a href="{% url 'deactivate_account' profile.user_id %}">
+                                               <button type="submit" class="btn btn-dark">
                                                     {% if profile.user.is_active == 1 %}
                                                     Deactivate
                                                     {% else %}
@@ -202,4 +202,6 @@
             <div class="col-3"></div>
         </div>
     </div>
+    <br>
+
 {% endblock body_content %}

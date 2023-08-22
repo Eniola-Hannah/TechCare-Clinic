@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from .models import Profile
+
 
 
 class SignUpForm(UserCreationForm):
@@ -21,3 +23,56 @@ class SignUpForm(UserCreationForm):
             'password1',
             'password2'
         ]
+
+
+class User_form(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email')
+
+
+class Profile_form(forms.ModelForm):
+    gend = [
+        ("Male", "Male"),
+        ("Female", "Female"),
+        ("LGBTQ+", "LGBTQ+"),
+    ]
+
+    user_status = [
+        ("Active", "Active"),
+        ("Resigned", "Resigned"),
+        ("Retired", "Retired"),
+        ("Transferred", "Transferred"),
+        ("Admitted", "Admitted"),
+        ("Discharged", "Discharged"),
+        ("Dead", "Dead"),
+    ]
+
+    means_of_identity = forms.ImageField(required=False, label='means of identity')
+    particulars = forms.FileField(required=False, label='particulars')
+    profile_passport = forms.ImageField(required=False, label='profile passport')
+    status = forms.ChoiceField(choices=user_status, required=True)
+    gender = forms.ChoiceField(choices=gend, required=True, widget=forms.RadioSelect)
+    
+    class Meta: 
+        model = Profile
+        fields = [
+                    "address",
+                    "phone",
+                    "date_of_birth",
+                    "gender",
+                    "nationality",
+                    "state",
+                    "means_of_identity",
+                    "particulars",
+                    "profile_passport",
+                    "position",
+                    "marital_status",
+                    "blood_group",
+                    "next_of_kin",
+                    "staff",
+                ]
+        
+        widgets = {
+            'date_of_birth': forms.NumberInput(attrs={'type': 'date'}),
+        }
