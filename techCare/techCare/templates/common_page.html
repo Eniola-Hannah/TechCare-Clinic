@@ -81,7 +81,7 @@
                 <a class="nav-link" href="{% url 'doctors' %}">Doctors</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="{% url 'blog' %}">Services</a>
+                <a class="nav-link" href="{% url 'display_service' 'service_nologin' %}">Services</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="{% url 'contact' %}">Contact</a>
@@ -104,6 +104,8 @@
 
                               {% if request.user.is_superuser %}
                               <li><a class="dropdown-item" href="{% url 'all_staff' 'staff' %}">Staff Account</a></li>
+                              <li><a class="dropdown-item" href="{% url 'create_service' %}">Create a service</a></li>
+                              <li><a class="dropdown-item" href="{% url 'display_service' 'service_admin' %}">Display Service</a></li>
                               {% endif %}
 
                               {% if request.user.is_staff %}

@@ -18,21 +18,27 @@
       <div class="page-section py-3 mt-md-n5 custom-index">
         <div class="container">
           <div class="row justify-content-center">
+
             {% if services %}
               {% for service in services %}
+
             <div class="col-md-4 py-3 py-md-0">
               <div class="card-service wow fadeInUp">
                 <div class="circle-shape bg-secondary text-white">
-                  <span class="mai-chatbubbles-outline">
-
-                    
+                    {% if service.service_logo %}
+                      <img src="{{service.service_logo.url}}" alt="img" width="100px" height="100px">
+                    {% else %}
+                      <i class="mai-chatbubbles-outline text-dark me-2"></i>
+                    {% endif %}
                   </span>
                 </div>
-                <p><span>Chat</span> with a doctors</p>
+                <p><span>{{service.service_option}}</span></p>
               </div>
             </div>
+            
             {% endfor %}
             {% endif %}
+
           </div>
         </div>
       </div> <!-- .page-section -->

@@ -12,6 +12,11 @@ class GeneralPurpose:
         ("Ambulance Service", "Ambulance Service"),
         ("Medcine & Pharmacy", "Medcine & Pharmacy"),
         ("Medical Lab", "Medical Lab"),
+        ("General Health", "General Health"),
+        ("Cardiology", "Cardiology"),
+        ("Dental", "Dental"),
+        ("Neurology", "Neurology"),
+        ("Orthopaedics", "Orthopaedics"),
     ]
 
     user_status = [

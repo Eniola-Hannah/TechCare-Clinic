@@ -7,7 +7,7 @@ class Services_form(forms.ModelForm):
 
     list_HOD = []
     for hods in Profile.objects.all().filter(position="HOD"):
-        list_HOD.append((hods.user_id, hods.user.first_name + " " + hods.user.last_name + " (" + hods.department + ")"))
+        list_HOD.append((hods.user_id, hods.user.first_name + " " + hods.user.last_name))
 
         service_logo = forms.FileField(required=False)
     hod = forms.ChoiceField(choices=list_HOD, required=True)
@@ -22,3 +22,5 @@ class Services_form(forms.ModelForm):
             'price',
             'description',
         ]
+
+    

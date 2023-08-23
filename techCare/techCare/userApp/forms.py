@@ -67,6 +67,7 @@ class Profile_form(forms.ModelForm):
                     "particulars",
                     "profile_passport",
                     "position",
+                    "department",
                     "marital_status",
                     "blood_group",
                     "next_of_kin",
