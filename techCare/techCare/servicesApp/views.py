@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponsePermanentRedirect
-from .forms import Services_form
-from .models import Service
+from .forms import Services_form, BooksService_form
+from .models import Service, BookingService
 from django.urls import reverse
 from django.contrib import messages
 
@@ -62,8 +62,8 @@ def serviceDetails(request, serv_id):
         service_form = BooksService_form(request.POST)
         if service_form.is_valid():
             form = service_form.save(commit=False)
-            hod = Service.objects.get(service_id = serv_id)
-            form.hod_id = hod.HoD_id
+            hods = Service.objects.get(service_id = serv_id)
+            form.hod_id = hods.hod_id
             form.user_id = request.user.id
             form.save()
             
