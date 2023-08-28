@@ -5,6 +5,7 @@ from .forms import Services_form, BooksService_form
 from .models import Service, BookingService
 from django.urls import reverse
 from django.contrib import messages
+from django.db import transaction
 
 
 # Create your views here.
@@ -56,14 +57,15 @@ def editServices(request, serv_id):
         })
     
 
+@transaction.atomic
 @login_required
 def serviceDetails(request, serv_id):
     if request.method == 'POST':
         service_form = BooksService_form(request.POST)
+        service = Service.objects.get(service_id = serv_id)
         if service_form.is_valid():
             form = service_form.save(commit=False)
-            hods = Service.objects.get(service_id = serv_id)
-            form.hods_id = hods.hod_id
+            form.hods_id = service.hod_id
             form.user_id = request.user.id
             form.service_id = serv_id
             form.save()
