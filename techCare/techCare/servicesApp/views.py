@@ -70,6 +70,7 @@ def serviceDetails(request, serv_id):
             form.user_id = request.user.id
             form.service_id = service
             form.price = service.price
+            form.service_name = service.service_option
             form.save()
 
             send_mail(
@@ -96,6 +97,14 @@ def serviceDetails(request, serv_id):
 def myBooking(request, user):
     booking = BookingService.objects.filter(user_id=user).order_by("approved_date")
     return render(request=request, template_name='servicesApp/my_booking.html', context={"booking_service":booking})
+
+@login_required
+def patientBooking(request, user):
+    if request.user.profile.position == "CMD":
+       my_booking = BookingService.objects.all().order_by("date_created").reverse()
+    elif request.user.profile.position == "HOD":
+
+
 
 
 

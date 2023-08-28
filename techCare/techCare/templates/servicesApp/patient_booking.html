@@ -9,7 +9,7 @@
         <section class="is-title-bar">
             <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
                 <ul>
-                    <li>My Booking</li>
+                    <li>Booking History</li>
                 </ul>
             </div>
         </section>
@@ -20,66 +20,84 @@
                     <div class="card-content">
                         <div class="flex items-center justify-between">
                             <div class="widget-label">
+
+                                <p><span class="date text-pink text-size-30px">
+
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            {{message}}
+                                        {% endfor %}
+                                    {% endif %}
+
+                                </span></p>
+                                    
                                 <table class="table table-striped table-hover mx-auto px-auto">
                                     <thead bgcolor="#969cad">
-                                        <th>BOOKING DATE</th><th>SERVICE NAME</th><th>PRICE</th><th>APPROVED DATE</th>
-                                        <th>APPROVED TIME</th><th>DESCRIPTION</th>
-                                        <th>PAYMENT</th>
+                                        <th>PATIENT ID</th><th>PICTURE</th><th>USERNAME</th><th>FULL NAME</th>
+                                        <th>SERVICE NAME</th><th>BOOKING DATE</th><th>APPROVED DOCTOR</th>
+                                        <th>VIEW DETAILS</th>
                                     </thead>
-                                    {% if booking_services %}
+                                    {% if patient_booking %}
 
-                                    {% for booking in booking_services %}
+                                    {% for patient in patient_booking %}
 
                                         <tr>
                                         
                                             <td>
                                                 <span style="color: #0e399c;" class="font-weight-bold">
-                                                {{booking.date_created}}
+                                                TCH-0{{patient.user.id}}
                                                 </span>
                                             </td>
 
                                             <td>
                                                 <span style="color: #969cad;" class="font-weight-bold">
-                                                    {{booking.service_option}}
+                                                    {% if patient.user.profile_passport %}
+                                                        <img src="{{patient.user.profile_passport.url}}" alt="img" width="100px" height="100px">
+                                                    {% else %}
+                                                        <i class="fas fa-user fa-lag fa-fw text-dark me-2"></i>
+                                                    {% endif %}
+                                                        
                                                 </span>
                                             </td>
 
                                             <td>
                                                 <span style="color: #969cad;" class="font-weight-bold">
-                                                    {{booking.price}}
+                                                    {{patient.user.username}}
                                                 </span>
                                             </td>
 
                                             <td>
                                                 <span style="color: #969cad;" class="font-weight-bold">
-                                                    {{booking.approved_date}}
+                                                    {{patient.user.first_name}} {{patient.user.last_name}}
                                                 </span>
                                             </td>
 
                                             <td>
                                                 <span style="color: #969cad;" class="font-weight-bold">
-                                                    {{booking.approved_time}}
+                                                    {{patient.service_name}}
                                                 </span>
                                             </td>
 
                                             <td>
                                                 <span style="color: #969cad;" class="font-weight-bold">
-                                                    {{booking.description}}
+                                                    {{patient.date_created}}
                                                 </span>
                                             </td>
 
                                             <td>
-                                                {% if booking.payment == 1 %}  
-                                                PAID
+                                                <span style="color: #969cad;" class="font-weight-bold">
+                                                    {{patient.hod}}
+                                                </span>
+                                            </td>
 
-                                                {% else %} 
-                                                <a href="{% url 'book_payment' booking.booking_id %}">
+                                            <td>
+                                      
+                                                <a href="{% url 'view_booking_detail' patient.booking_id %}">
                                                     <span style="color: #0e399c;" class="font-weight-bold">
-                                                        Make Payment
+                                                        Booking Details
                                                     </span>
                                                 </a>
 
-                                                {% endif %}
                                             </td>
 
                                         </tr>
