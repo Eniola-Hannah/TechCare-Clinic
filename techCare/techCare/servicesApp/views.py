@@ -102,10 +102,19 @@ def myBooking(request, user):
 def patientBooking(request, user):
     if request.user.profile.position == "CMD":
        my_booking = BookingService.objects.all().order_by('date_created').reverse()
+
     elif request.user.profile.position == "HOD":
         my_booking = BookingService.objects.filter(service_name=request.user.profile.department).order_by('date_created').reverse()
+    
     elif request.user.profile.position == "Consultant":
         my_booking = BookingService.objects.filter(consultant_doctor_id=request.user.id, service_name=request.user.profile.department).order_by('date_created').reverse()
+    
     elif request.user.profile.position == "Consultant":
         my_booking = BookingService.objects.filter(resident_doctor_id=request.user.id, service_name=request.user.profile.department).order_by('date_created').reverse()
+    
     return render(request=request, template_name='servicesApp/patient_booking.html', context={"patient_booking":my_booking})
+
+
+@login_required
+def viewBookingDetail(request, book_id):
+    pass
