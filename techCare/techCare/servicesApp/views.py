@@ -63,8 +63,9 @@ def serviceDetails(request, serv_id):
         if service_form.is_valid():
             form = service_form.save(commit=False)
             hods = Service.objects.get(service_id = serv_id)
-            form.hod_id = hods.hod_id
+            form.hods_id = hods.hod_id
             form.user_id = request.user.id
+            form.service_id = serv_id
             form.save()
             
             

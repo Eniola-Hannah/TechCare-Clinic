@@ -85,14 +85,9 @@
             <form class="main-form" method="post">
               {% csrf_token %}
               <div class="row mt-5 ">
-                <div class="col-12 col-sm-6 py-2 wow fadeInRight">
-                  {{serviceForm.user}}
-                </div>
-                <div class="col-12 col-sm-6 py-2 wow fadeInRight" data-wow-delay="300ms">
-                  {{serviceForm.service_option}}
-                </div>
+                <h3> Please supply the details of your medical condition</h3>
                 <div class="col-12 py-2 wow fadeInUp" data-wow-delay="300ms">
-                  {{serviceForm.description}}
+                  Description: {{serviceForm.description}}
                 </div>
               </div>
       

@@ -25,20 +25,13 @@ class Services_form(forms.ModelForm):
 
 
 class BooksService_form(forms.ModelForm):
-    service_list = []
-    for service in Service.objects.all():
-        service_list.append((service.service_id, service.service_option))
-    
-    # service_option = forms.ChoiceField(choices=service_list, required=True)
     class Meta:
         model = BookingService
         fields = [
-            'service_option',
             'description',
         ]
         
         widgets = {
-            'date_created': forms.NumberInput(attrs={'type': 'date'}),
             "description": forms.Textarea(attrs={'cols':60, 'row': 3}),
         }
 

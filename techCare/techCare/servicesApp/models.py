@@ -46,7 +46,7 @@ class BookingService(models.Model):
         booking_id = models.AutoField(primary_key=True)
         user = models.ForeignKey(User, null=False, blank=False, unique=False, on_delete=models.CASCADE)
         hod = models.ForeignKey(User, related_name="hod", null=False, blank=False, unique=False, on_delete=models.CASCADE, default=1)
-        service_option = models.IntegerField(null=False, unique=False)
+        service_id = models.ForeignKey(Service, null=False, blank=False, unique=False, on_delete=models.CASCADE)
         date_created = models.DateField(auto_now_add=True)
         consultant_doctor = models.ForeignKey(User, related_name="consultant_doctor", null=False, unique=False, on_delete=models.CASCADE, default=1)
         resident_doctor = models.ForeignKey(User, related_name="resident_doctor", null=False, unique=False, on_delete=models.CASCADE, default=1)
