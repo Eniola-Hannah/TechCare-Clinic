@@ -8,6 +8,6 @@ urlpatterns = [
     re_path(r'^edit_service/(?P<serv_id>\d+)/', sw.editServices, name='edit_service'),
     re_path(r'^service_details/(?P<serv_id>\d+)/', sw.serviceDetails, name='service_details'),
     re_path(r'^my_booking/(?P<user>\d+)/', sw.myBooking, name='my_booking'),
-    re_path(r'^patient_booking/(?P<user>\d+)/', sw.patientBooking, name='patient_booking'),
+    # re_path(r'^patient_booking/(?P<user>\d+)/', sw.patientBooking, name='patient_booking'),
 
 ]
