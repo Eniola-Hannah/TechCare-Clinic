@@ -38,3 +38,23 @@ class Service(models.Model):
     service_logo = models.ImageField(upload_to="service_logo/", blank=True, null=True, unique=False)
     price = models.BigIntegerField(unique=False)
     description = models.CharField(max_length=300, blank=True, null=True)
+
+
+class BookingService(models.Model):
+        genP = GeneralPurpose()
+        
+        booking_id = models.AutoField(primary_key=True)
+        user = models.ForeignKey(User, null=False, blank=False, unique=False, on_delete=models.CASCADE)
+        hod = models.ForeignKey(User, related_name="hod", null=False, blank=False, unique=False, on_delete=models.CASCADE, default=1)
+        service_option = models.IntegerField(null=False, unique=False)
+        date_created = models.DateField(auto_now_add=True)
+        consultant_doctor = models.ForeignKey(User, related_name="consultant_doctor", null=False, unique=False, on_delete=models.CASCADE, default=1)
+        resident_doctor = models.ForeignKey(User, related_name="resident_doctor", null=False, unique=False, on_delete=models.CASCADE, default=1)
+        approved_date = models.DateField(null=True, blank=True, unique=False)
+        approved_time = models.TimeField(null=True, blank=True, unique=False)
+        description = models.CharField(max_length=300, blank=True, null=True)
+        payment = models.BooleanField(default=False, blank=True, null=True, unique=False)
+        served = models.BooleanField(default=False, blank=True, null=True, unique=False)
+        patient_status = models.CharField(choices=genP.user_status, max_length=20, unique=False, null=True)
+        doctor_remark = models.CharField(max_length=100, blank=True, null=True, unique=False)
+        price = models.BigIntegerField(unique=False, default=00)

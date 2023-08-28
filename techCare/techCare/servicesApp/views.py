@@ -57,7 +57,7 @@ def editServices(request, serv_id):
     
 
 @login_required
-def serviceDetail(request, serv_id):
+def serviceDetails(request, serv_id):
     if request.method == 'POST':
         service_form = BooksService_form(request.POST)
         if service_form.is_valid():
