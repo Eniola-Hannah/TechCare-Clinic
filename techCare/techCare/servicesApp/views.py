@@ -54,3 +54,23 @@ def editServices(request, serv_id):
         return render(request, 'servicesApp/edit_service_form.html', {
             'service_form': service_form,
         })
+    
+
+# @login_required
+# def createService(request, serv_id):
+#     pass
+#     if request.method == 'POST':
+#         service_form = BooksService_form(request.POST, request.FILES)
+#         if service_form.is_valid():
+#             service_form.save()
+#             messages.success(request, ('Booking created successfully!'))
+#             return HttpResponsePermanentRedirect(reverse('service_details', args=(serv_id,)))
+#         else:
+#             messages.error(request, ('Please correct the error below.'))
+#             return HttpResponsePermanentRedirect(reverse('service_details', args=(serv_id,)))
+    
+#     else:
+#         services = Service.objects.filter(serveice_id=serv_id)
+#         service_form = BooksService_form()
+#         return render(request=request, template_name='servicesApp/service_details.html', context={"serviceForm": service_form})
+    
