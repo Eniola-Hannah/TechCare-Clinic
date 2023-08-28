@@ -6,6 +6,7 @@ from .models import Service, BookingService
 from django.urls import reverse
 from django.contrib import messages
 from django.db import transaction
+from django.core.mail import send_mail
 
 
 # Create your views here.
@@ -65,19 +66,27 @@ def serviceDetails(request, serv_id):
         service = Service.objects.get(service_id = serv_id)
         if service_form.is_valid():
             form = service_form.save(commit=False)
-            form.hods_id = service.hod_id
+            form.hod_id = service.hod_id
             form.user_id = request.user.id
-            form.service_id = serv_id
+            form.service_id = service
             form.save()
+
+            send_mail(
+                'A BOOKING HAS BEEN MADE BY A PATIENT', # Subject of the mail
+                f'Dear Dr. {service.hod.first_name}, a patient has booked for a service. Please accept and fix an appointment with the patient. Thanks', # Body
+                'heniolahannah@gmail.com', # from email(sender), pick it from service in the db
+                [service.hod.email], # To email reciever
+                fail_silently=False #Handle any error
+            )
             
             
             messages.success(request, ('Booking created successfully!'))
-            return HttpResponsePermanentRedirect(reverse('service_detail', args=(serv_id,)))
+            return HttpResponsePermanentRedirect(reverse('service_details', args=(serv_id,)))
         else:
             messages.error(request, ('Please correct the error below.'))
-            return HttpResponsePermanentRedirect(reverse('service_detail', args=(serv_id,)))
+            return HttpResponsePermanentRedirect(reverse('service_details', args=(serv_id,)))
     else:
         service_detail = Service.objects.filter(service_id=serv_id)
         service_form = BooksService_form()
-        return render(request=request, template_name='servicesApp/service_details.html', context={"service_detail":service_detail,"serviceForm": service_form})
+        return render(request=request, template_name='servicesApp/service_details.html', context={"service_details":service_detail,"serviceForm": service_form})
     

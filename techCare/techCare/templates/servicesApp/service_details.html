@@ -55,6 +55,25 @@
             {% endfor %}
             {% endif %}
 
+            <p><span class="date text-pink text-size-30px mt-5">
+              {% if messages %}
+                  {% for message in messages %}
+                      {{message}}
+                  {% endfor %}
+              {% endif %}</span>
+            </p>
+            <form class="main-form" method="post">
+              {% csrf_token %}
+              <div class="row mt-5 ">
+                <h3> Please supply the details of your medical condition</h3>
+                <div class="col-12 py-2 wow fadeInUp" data-wow-delay="300ms">
+                  Description: {{serviceForm.description}}
+                </div>
+              </div>
+      
+              <button type="submit" class="btn btn-primary mt-3 wow zoomIn">Submit Request</button>
+            </form>
+
             
             <div class="col-12 my-5">
               <nav aria-label="Page Navigation">
@@ -75,24 +94,6 @@
                 </ul>
               </nav>
             </div>
-            <p><span class="date text-pink text-size-30px mt-5">
-              {% if messages %}
-                  {% for message in messages %}
-                      {{message}}
-                  {% endfor %}
-              {% endif %}</span>
-            </p>
-            <form class="main-form" method="post">
-              {% csrf_token %}
-              <div class="row mt-5 ">
-                <h3> Please supply the details of your medical condition</h3>
-                <div class="col-12 py-2 wow fadeInUp" data-wow-delay="300ms">
-                  Description: {{serviceForm.description}}
-                </div>
-              </div>
-      
-              <button type="submit" class="btn btn-primary mt-3 wow zoomIn">Submit Request</button>
-            </form>
           </div> <!-- .row -->
         </div>
 
