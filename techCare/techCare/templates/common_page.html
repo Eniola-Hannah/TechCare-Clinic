@@ -110,8 +110,10 @@
 
                               {% if request.user.is_staff %}
                               <li><a class="dropdown-item" href="{% url 'all_patient' 'patient' %}">Patient Account</a></li>
+                              <li><a class="dropdown-item" href="{% url 'patient_booking' 'request.user.id' %}">Patient Bookings</a></li>
                               {% endif %}
                                           
+                              <li><a class="dropdown-item" href="{% url 'my_booking' request.user.id %}">My Bookings</a></li>
                               <li><a class="dropdown-item" href="{% url 'password_change' %}">Change passsword</a></li>
                             </ul>
                           </li>
