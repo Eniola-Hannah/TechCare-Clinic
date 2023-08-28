@@ -91,3 +91,10 @@ def serviceDetails(request, serv_id):
         service_form = BooksService_form()
         return render(request=request, template_name='servicesApp/service_details.html', context={"service_details":service_detail,"serviceForm": service_form})
     
+
+@login_required
+def myBooking(request, user):
+    booking = BookingService.objects.filter(user_id=user).order_by("approved_date")
+    return render(request=request, template_name='servicesApp/my_booking.html', context={"booking_service":booking})
+
+    
