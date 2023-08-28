@@ -69,6 +69,7 @@ def serviceDetails(request, serv_id):
             form.hod_id = service.hod_id
             form.user_id = request.user.id
             form.service_id = service
+            form.price = service.price
             form.save()
 
             send_mail(
