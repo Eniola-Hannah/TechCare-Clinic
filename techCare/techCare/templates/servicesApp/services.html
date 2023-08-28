@@ -28,39 +28,40 @@
         <div class="col-lg-8">
           <div class="row">
 
-            <div class="col-sm-6 py-3">
-              <div class="card-blog">
-                <div class="header">
-                  <div class="post-category">
-                    <a href="#">{{service.price}}</a>
-                  </div>
-                  {% if service.service_logo %}
-                      <img src="{{service.service_logo.url}}" alt="img" width="270px" height="200px">
-                  {% else %}
-                      <i class="mai-chatbubbles-outline text-dark me-2"></i>
-                  {% endif %}
-                </div>
-                <div class="body">
-                  <h5 class="post-title"><a href="#">{{service.service_option}}</a></h5>
-                  <div class="site-info">
-                    <div class="avatar mr-2">
-                      <div class="avatar-img">
-                        {% if service.service_logo %}
-                            <img src="{{service.hod.profile_passport.url}}" alt="img" width="100px" height="100px">
-                        {% else %}
-                            <i class="mai-chatbubbles-outline text-dark me-2"></i>
-                        {% endif %}
-                      </div>
-                      <span>Dr. {{service.hod.username}}</span>
+            <a>
+              <div class="col-sm-6 py-3">
+                <div class="card-blog">
+                  <div class="header">
+                    <div class="post-category">
+                      <a href="#">{{service.price}}</a>
                     </div>
-                    <span class="mai-time"></span>
+                    {% if service.service_logo %}
+                        <img src="{{service.service_logo.url}}" alt="img" width="270px" height="200px">
+                    {% else %}
+                        <i class="mai-chatbubbles-outline text-dark me-2"></i>
+                    {% endif %}
+                  </div>
+                  <div class="body">
+                    <h5 class="post-title"><a href="#">{{service.service_option}}</a></h5>
+                    <div class="site-info">
+                      <div class="avatar mr-2">
+                        <div class="avatar-img">
+                          {% if service.service_logo %}
+                              <img src="{{service.hod.profile_passport.url}}" alt="img" width="100px" height="100px">
+                          {% else %}
+                              <i class="mai-chatbubbles-outline text-dark me-2"></i>
+                          {% endif %}
+                        </div>
+                        <span>Dr. {{service.hod.username}}</span>
+                      </div>
+                      <span class="mai-time"></span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            {% endfor %}
-            {% endif %}
- 
+              {% endfor %}
+              {% endif %}
+            </a>
 
             <div class="col-12 my-5">
               <nav aria-label="Page Navigation">
