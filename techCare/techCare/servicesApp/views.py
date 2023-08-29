@@ -118,3 +118,8 @@ def patientBooking(request, user):
 @login_required
 def viewBookingDetail(request, book_id):
     pass
+
+
+@login_required
+def bookingPayment(request, book_id):
+    pass

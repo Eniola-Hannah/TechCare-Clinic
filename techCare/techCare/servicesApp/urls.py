@@ -10,5 +10,6 @@ urlpatterns = [
     re_path(r'^my_booking/(?P<user>\d+)/', sw.myBooking, name='my_booking'),
     re_path(r'^patient_booking/(?P<user>\d+)/', sw.patientBooking, name='patient_booking'),
     re_path(r'^view_booking_detail/(?P<book_id>\d+)/', sw.viewBookingDetail, name='view_booking_detail'),
+    re_path(r'^book_payment/(?P<book_id>\d+)/', sw.bookingPayment, name='book_payment'),
 
 ]
