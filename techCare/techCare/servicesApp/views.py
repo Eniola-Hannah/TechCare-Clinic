@@ -109,7 +109,7 @@ def patientBooking(request, user):
     elif request.user.profile.position == "Consultant":
         my_booking = BookingService.objects.filter(consultant_doctor_id=request.user.id, service_name=request.user.profile.department).order_by('date_created').reverse()
     
-    elif request.user.profile.position == "Consultant":
+    elif request.user.profile.position == "Resident doctor":
         my_booking = BookingService.objects.filter(resident_doctor_id=request.user.id, service_name=request.user.profile.department).order_by('date_created').reverse()
     
     return render(request=request, template_name='servicesApp/patient_booking.html', context={"patient_booking":my_booking})
@@ -117,9 +117,24 @@ def patientBooking(request, user):
 
 @login_required
 def viewBookingDetail(request, book_id):
-    pass
+    my_booking = BookingService.objects.filter(booking_id=book_id)
+    return render(request, "servicesApp/view_booking_detail.html", {"my_booking": my_booking})
 
 
 @login_required
 def bookingPayment(request, book_id):
+    pass
+
+
+@login_required
+def acceptBooking(request, book_id):
+    pass
+
+@login_required
+def editBooking(request, book_id):
+    pass
+
+
+@login_required
+def declineBooking(request, book_id):
     pass
