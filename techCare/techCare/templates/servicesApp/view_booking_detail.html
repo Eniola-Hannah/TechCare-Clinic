@@ -142,35 +142,48 @@
                                 <hr>
 
                                 {% if request.user.is_staff or request.user.is_superuser %}
+                                    {% if detail.payment == 1 %}
 
-                                    <div class="field d-flex mx-2 g-2">
+                                        <div class="field d-flex mx-2 g-2">
 
-                                        <div class="control">
-                                            <a href="{% url 'edit_booking' detail.booking_id %}">
-                                                <button type="submit" class="btn btn-sm btn-secondary m-1">
-                                                    Refer
-                                                </button>
-                                            </a>
-                                        </div> 
+                                            <div class="control">
+                                                <a href="{% url 'edit_booking' detail.booking_id %}">
+                                                    <button type="submit" class="btn btn-sm btn-secondary m-1">
+                                                        Refer
+                                                    </button>
+                                                </a>
+                                            </div> 
 
-                                        <div class="control">
-                                            <a href="{% url 'accept_booking' detail.booking_id %}">
-                                                <button type="submit" class="btn btn-sm btn-primary m-1">
-                                                    Accept
-                                                </button>
-                                            </a>
+                                            <div class="control">
+                                                <a href="{% url 'accept_booking' detail.booking_id %}">
+                                                    <button type="submit" class="btn btn-sm btn-primary m-1">
+                                                        Accept
+                                                    </button>
+                                                </a>
+                                            </div>
+
+                                            <div class="control">
+                                                <a href="{% url 'decline_booking' detail.booking_id %}">
+                                                    <button type="submit" class="btn btn-sm btn-dark m-1">
+                                                        Decline
+                                                    </button>
+                                                </a>
+                                            </div>
+
                                         </div>
 
-                                        <div class="control">
-                                            <a href="{% url 'decline_booking' detail.booking_id %}">
-                                                <button type="submit" class="btn btn-sm btn-dark m-1">
-                                                    Decline
-                                                </button>
-                                            </a>
-                                        </div>
+                                    {% endif %}
+                                
+                                {% else %}
+                                    <div class="control">
 
-                                    </div>
+                                        <a href="{% url 'book_payment' detail.booking_id %}">
+                                            <button type="submit" class="btn btn-sm btn-primary">
+                                                Make Payment
+                                            </button>
+                                        </a>
 
+                                    </dv>
                                 {% endif %}
                             </div>
                                     

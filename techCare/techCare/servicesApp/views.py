@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponsePermanentRedirect
-from .forms import Services_form, BooksService_form
+from .forms import Services_form, BooksService_form, AcceptBooksService_form
 from .models import Service, BookingService
 from django.urls import reverse
 from django.contrib import messages
@@ -68,7 +68,7 @@ def serviceDetails(request, serv_id):
             form = service_form.save(commit=False)
             form.hod_id = service.hod_id
             form.user_id = request.user.id
-            form.service_id = service
+            form.service_id = service.service_id
             form.price = service.price
             form.service_name = service.service_option
             form.save()
@@ -128,7 +128,42 @@ def bookingPayment(request, book_id):
 
 @login_required
 def acceptBooking(request, book_id):
-    pass
+    if request.method == "POST":
+        booking = get_object_or_404(BookingService, booking_id=book_id)
+        booking_form = AcceptBooksService_form(request.POST, instance=booking)
+        if booking_form.is_valid():
+            patient_email = booking.user.email
+            booking_form.save()
+
+            # Mail to the patient
+            send_mail(
+                'Booking has been made by a patient',
+                f'Dear {booking.user.first_name}, your booking appointment has been approved. see your booking details for more information or click on the <a href="http://127.0.0.1:8000/servicesApp/view_booking_detail/{booking.user_id}">booking</a>. Thanks \n http://127.0.0.1:8000/servicesApp/view_booking_detail/{booking.user_id}',
+                'heniolahannah@gmail.com',
+                [patient_email],
+                fail_silently=False,
+            )
+
+            # Confirmation Mail to the HOD
+            send_mail(
+                'Your referred patient was accepted',
+                f'Dear HOD, Dr. {booking.consultant_doctor.first_name},accepted the patient named {booking.user.first_name} you refer to him/her. Thanks',
+                'heniolahannah@gmail.com',
+                [booking.hod.email],
+                fail_silently=False,
+            )
+
+            messages.success(request, ('Booking edited successfully'))
+            return HttpResponsePermanentRedirect(reverse('view_booking_detail', args=(book_id,)))
+        else:
+            messages.success(request, ('Please correct the error below'))
+            return HttpResponsePermanentRedirect(reverse('edit_booking', args=(book_id,)))
+        
+    else:
+        booking = get_object_or_404(BookingService, booking_id=book_id)
+        booking_form = AcceptBooksService_form(instance=booking)
+        return render(request, 'servicesApp/edit_booking_service_form.html', {'booking_form':booking_form})
+
 
 @login_required
 def editBooking(request, book_id):

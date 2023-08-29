@@ -1,0 +1,25 @@
+{% extends "common_page.html" %} 
+   {% block title %} EDIT BOOKING DETAILS {% endblock title %}
+   {% load static %}
+   {% block  body_content %}
+   
+   <div>
+        <div class="row">
+            <div class="col-3"></div>
+                <div class="col-md-6 col-12 col-offset-3">
+                    <form method="POST" class='mt-4' enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% load bootstrap %}
+
+                       {{service_form|bootstrap}} 
+
+
+                        <div class="d-flex justify-content-center"></div>
+                        <input class="bc-white btn btn-primary mt-2 ml-2 loginbutton" type="submit" value="Accept Booking">
+                    </form>
+                </div>
+        </div>
+    </div>
+    <br>
+
+    {% endblock body_content %}
