@@ -53,3 +53,36 @@ class AcceptBooksService_form(forms.ModelForm):
             'doctor_remark': forms.Textarea(attrs={'cols':60, 'row':3}),
         }
     
+
+class editBooksService_form(forms.ModelForm):
+
+    list_resident =[("", "---------")]
+    list_consultant =[("", "---------")]
+    for user in User.objects.filter(is_staff=True):
+        if user.profile.position == "Resident doctor":
+            list_resident.append((user.id, user.first_name + " " + user.last_name + " (" + user.profile.department + ")" ))
+        elif user.profile.position == "Consultant":
+            list_consultant.append((user.id, user.first_name + " " + user.last_name + " (" + user.profile.department + ")" ))
+
+    resident_ = forms.ChoiceField(choices=list_resident, required=False)
+    consultant_ = forms.ChoiceField(choices=list_consultant, required=False)
+
+    class Meta:
+        model = BookingService
+        fields = [
+            'description',
+            'consultant_',
+            'resident_',
+            'approved_date',
+            'approved_time',
+            'served',
+            'patient_status',
+            'doctor_remark',
+        ]
+
+        widgets = {
+            'approved_date': forms.NumberInput(attrs={'type':'date'}),
+            'approved_time': forms.NumberInput(attrs={'type':'time'}),
+            'description': forms.Textarea(attrs={'cols':60, 'row':3}),
+            'doctor_remark': forms.Textarea(attrs={'cols':60, 'row':3}),
+        } 
