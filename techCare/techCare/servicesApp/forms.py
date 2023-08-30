@@ -54,7 +54,7 @@ class AcceptBooksService_form(forms.ModelForm):
         }
     
 
-class editBooksService_form(forms.ModelForm):
+class EditBooksService_form(forms.ModelForm):
 
     list_resident =[("", "---------")]
     list_consultant =[("", "---------")]

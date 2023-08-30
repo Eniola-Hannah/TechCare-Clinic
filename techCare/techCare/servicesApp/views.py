@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponsePermanentRedirect
-from .forms import Services_form, BooksService_form, AcceptBooksService_form
+from .forms import Services_form, BooksService_form, AcceptBooksService_form, EditBooksService_form
 from .models import Service, BookingService
 from django.urls import reverse
 from django.contrib import messages
@@ -167,7 +167,40 @@ def acceptBooking(request, book_id):
 
 @login_required
 def editBooking(request, book_id):
-    pass
+    if request.method == "POST":
+        booking = get_object_or_404(BookingService, booking_id=book_id)
+        booking_form = EditBooksService_form(request.POST, instance=booking)
+        if booking_form.is_valid():
+            booking = booking_form.save(commit=False)
+            if booking_form.cleaned_data["resident_"]:
+                email = booking.resident_doctor.email
+                booking.resident_doctor_id = booking_form.cleaned_data["resident_"]
+            else:
+                email = booking.consultant_doctor.email
+                booking.consultant_doctor_id = booking_form.cleaned_data["consultant_"]
+
+            booking.save()
+
+            # Mail to the patient
+            send_mail(
+                'Booking has been made by a patient',
+                f'Dear Dr. {booking.user.first_name}, a patient booking has been referred to you. Please accept and fix an appointment wit the patient. Thanks',
+                'heniolahannah@gmail.com',
+                [email],
+                fail_silently=False,
+            )
+
+
+            messages.success(request, ('Booking edited successfully'))
+            return HttpResponsePermanentRedirect(reverse('view_booking_detail', args=(book_id,)))
+        else:
+            messages.success(request, ('Please correct the error below'))
+            return HttpResponsePermanentRedirect(reverse('edit_booking', args=(book_id,)))
+        
+    else:
+        booking = get_object_or_404(BookingService, booking_id=book_id)
+        booking_form = AcceptBooksService_form(instance=booking)
+        return render(request, 'servicesApp/edit_booking_service_form.html', {'booking_form':booking_form})
 
 
 @login_required

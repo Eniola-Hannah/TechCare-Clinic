@@ -30,7 +30,7 @@ class Profile(models.Model):
         ("CMD", "CMD"),
         ("CMAC", "CMAC"),
         ("HOD", "HOD"),
-        ("Consultant", "COnsultant"),
+        ("Consultant", "Consultant"),
         ("Resident doctor", "Resident doctor"),
         ("Accountant", "Accountant"),
         ("Secretary", "Secretary"),
