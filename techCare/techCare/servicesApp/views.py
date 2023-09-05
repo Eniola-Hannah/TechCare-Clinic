@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponsePermanentRedirect
-from .forms import Services_form, BooksService_form, AcceptBooksService_form, EditBooksService_form
-from .models import Service, BookingService
+from .forms import Services_form, BooksService_form, AcceptBooksService_form, EditBooksService_form, MedicalReportForm
+from .models import Service, BookingService, PatientMedicalHistory
 from django.urls import reverse
 from django.contrib import messages
 from django.db import transaction
@@ -206,3 +206,21 @@ def editBooking(request, book_id):
 @login_required
 def declineBooking(request, book_id):
     pass
+
+@login_required
+def medicalHistory(request, user):
+    medical_history = PatientMedicalHistory.objects.filter(user_id=user)
+    return render(request, "servicesApp/medical_history.html", {"medical_history": medical_history, "user_id":user})
+
+@login_required
+def medicalReport(request, user):
+    if request.method == "POST":
+        medical_form = MedicalReportForm(request.POST)
+        if medical_form.is_valid():
+            medical_history = medical_form.save(commit=False)
+            medical_history.user = user
+        return medicalHistory(request)
+        
+    else:
+        medical_form = MedicalReportForm()
+        return render(request=request, template_name='servicesApp/medical_history_form.html', context={'medicalForm':medical_form})

@@ -26,7 +26,7 @@
                                         <th>PICTURE</th><th>USERNAME</th><th>FULL NAME</th>
 
                                         {% if user == "staff" %}<th>POSITION</th><th>DEPARTMENT</th>{% endif %}<th>STATUS</th>
-                                        <th>PROFILE</th>
+                                        <th>PROFILE</th><th>MEDICAL HISTORY</th>
                                     </thead>
                                     {% if all_user %}
 
@@ -79,6 +79,13 @@
                                             <a href="{% url 'my_account' users.user_id %}">
                                                 <span style="color: #0e399c;" class="font-weight-bold">
                                                     profile
+                                                </span>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="#">
+                                                <span style="color: #0e399c;" class="font-weight-bold">
+                                                    Medical History
                                                 </span>
                                             </a>
                                         </td>

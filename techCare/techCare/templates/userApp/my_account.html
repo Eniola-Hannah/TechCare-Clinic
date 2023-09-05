@@ -35,6 +35,22 @@
                                     <p class="card-header-title">
                                         <span class="icon"><i class="mdi mdi-account"></i></span>
                                         {% if request.user.is_staff == 1 %} <h3>Staff ID:</h3> {% else %}  <h3>Patient ID:</h3> {% endif %} TCH0 {{profile.user_id}}
+                                        <div class="d-flex">
+                                            <div style="margin-left: 300px;">
+                                                <a href="{% url 'my_booking' profile.user_id %}">
+                                                    <span style="color: #0e399c; margin-right:50px;" class="font-weight-bold">
+                                                        Booking History
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <a href="{% url 'medical_history' profile.user_id %}">
+                                                    <span style="color: #0e399c;" class="font-weight-bold">
+                                                        Medical History
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
                                         <hr>
                                         <h3>Username:</h3> {{profile.user.username}}
                                     </p>

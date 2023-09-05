@@ -41,21 +41,36 @@ class Service(models.Model):
 
 
 class BookingService(models.Model):
-        genP = GeneralPurpose()
-        
-        booking_id = models.AutoField(primary_key=True)
-        user = models.ForeignKey(User, null=False, blank=False, unique=False, on_delete=models.CASCADE)
-        hod = models.ForeignKey(User, related_name="hod", null=False, blank=False, unique=False, on_delete=models.CASCADE, default=1)
-        service = models.ForeignKey(Service, null=False, blank=False, unique=False, on_delete=models.CASCADE)
-        date_created = models.DateField(auto_now_add=True)
-        consultant_doctor = models.ForeignKey(User, related_name="consultant_doctor", null=False, unique=False, on_delete=models.CASCADE, default=1)
-        resident_doctor = models.ForeignKey(User, related_name="resident_doctor", null=False, unique=False, on_delete=models.CASCADE, default=1)
-        approved_date = models.DateField(null=True, blank=True, unique=False)
-        approved_time = models.TimeField(null=True, blank=True, unique=False)
-        description = models.CharField(max_length=300, blank=True, null=True)
-        service_name = models.CharField(max_length=100, blank=True, null=True, unique=False)
-        payment = models.BooleanField(default=False, blank=True, null=True, unique=False)
-        served = models.BooleanField(default=False, blank=True, null=True, unique=False)
-        patient_status = models.CharField(choices=genP.user_status, max_length=20, unique=False, null=True)
-        doctor_remark = models.CharField(max_length=100, blank=True, null=True, unique=False)
-        price = models.BigIntegerField(unique=False, default=00)
+    genP = GeneralPurpose()
+    
+    booking_id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, null=False, blank=False, unique=False, on_delete=models.CASCADE)
+    hod = models.ForeignKey(User, related_name="hod", null=False, blank=False, unique=False, on_delete=models.CASCADE, default=1)
+    service = models.ForeignKey(Service, null=False, blank=False, unique=False, on_delete=models.CASCADE)
+    date_created = models.DateField(auto_now_add=True)
+    consultant_doctor = models.ForeignKey(User, related_name="consultant_doctor", null=False, unique=False, on_delete=models.CASCADE, default=1)
+    resident_doctor = models.ForeignKey(User, related_name="resident_doctor", null=False, unique=False, on_delete=models.CASCADE, default=1)
+    approved_date = models.DateField(null=True, blank=True, unique=False)
+    approved_time = models.TimeField(null=True, blank=True, unique=False)
+    description = models.CharField(max_length=300, blank=True, null=True)
+    service_name = models.CharField(max_length=100, blank=True, null=True, unique=False)
+    payment = models.BooleanField(default=False, blank=True, null=True, unique=False)
+    price = models.BigIntegerField(unique=False, default=00)
+    doctor_remark = models.CharField(max_length=100, blank=True, null=True, unique=False)
+
+
+
+class PatientMedicalHistory(models.Model):
+    genP = GeneralPurpose()
+    
+    report_id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
+    service = models.ForeignKey(Service, null=False, unique=False, on_delete=models.CASCADE)
+    date_created = models.DateField(auto_now_add=True)
+    approved_doctor = models.ForeignKey(User, related_name="approved_doctor", null=False, on_delete=models.CASCADE)
+    next_approved_date = models.DateField(null=True, blank=True, unique=False)
+    next_approved_time = models.TimeField(null=True, blank=True, unique=False)
+    description= models.CharField(max_length=300, blank=True, unique=False)
+    patient_status = models.CharField(choices=genP.user_status, max_length=20, unique=False, null=True)
+    doctor_remark = models.CharField(max_length=100, blank=True, null=True, unique=False)
+    served = models.BooleanField(default=False, blank=True, null=True, unique=False)

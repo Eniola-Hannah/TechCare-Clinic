@@ -14,5 +14,7 @@ urlpatterns = [
     re_path(r'^accept_booking/(?P<book_id>\d+)/', sw.acceptBooking, name='accept_booking'),
     re_path(r'^edit_booking/(?P<book_id>\d+)/', sw.editBooking, name='edit_booking'),
     re_path(r'^decline_booking/(?P<book_id>\d+)/', sw.declineBooking, name='decline_booking'),
+    re_path(r'^medical_history/(?P<book_id>\d+)/', sw.medicalHistory, name='medical_history'),
+    re_path(r'^medical_report/(?P<book_id>\d+)/', sw.medicalReport, name='medical_report'),
 
 ]
