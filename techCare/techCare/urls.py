@@ -17,6 +17,7 @@ urlpatterns = [
     re_path(r'^accounts/signup/$', SignUpView.as_view(), name="signup"),
     re_path(r'^userApp/', include('techCare.userApp.urls')),
     re_path(r'^servicesApp/', include('techCare.servicesApp.urls')),
+    re_path(r'^paymentApp/', include('techCare.paymentApp.urls')),
 
 ]
 

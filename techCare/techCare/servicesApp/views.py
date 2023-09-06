@@ -122,11 +122,6 @@ def viewBookingDetail(request, book_id):
 
 
 @login_required
-def bookingPayment(request, book_id):
-    pass
-
-
-@login_required
 def acceptBooking(request, book_id):
     if request.method == "POST":
         booking = get_object_or_404(BookingService, booking_id=book_id)
