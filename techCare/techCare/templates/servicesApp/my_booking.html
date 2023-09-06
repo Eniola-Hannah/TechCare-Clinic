@@ -24,7 +24,7 @@
                                     <thead bgcolor="#969cad">
                                         <th>BOOKING DATE</th><th>SERVICE NAME</th><th>PRICE</th><th>APPROVED DATE</th>
                                         <th>APPROVED TIME</th><th>DESCRIPTION</th>
-                                        <th>PAYMENT</th>
+                                        <th>PAYMENT</th> <th>BOOKING DETAILS</th>
                                     </thead>
                                     {% if booking_service %}
 
@@ -40,7 +40,7 @@
 
                                             <td>
                                                 <span style="color: #969cad;" class="font-weight-bold">
-                                                    {{booking.service_option}}
+                                                    {{booking.service_name}}
                                                 </span>
                                             </td>
 
@@ -66,6 +66,24 @@
                                                 <span style="color: #969cad;" class="font-weight-bold">
                                                     {{booking.description}}
                                                 </span>
+                                            </td>
+
+                                            <td>
+                                                {% if patient.payment == 1 %}  
+
+                                                    <span style="color: #969cad;" class="font-weight-bold">
+                                                        PAID
+                                                    </span>
+
+                                                {% else %} 
+
+                                                    <span style="color: #0e399c;" class="font-weight-bold">
+                                                        PENDING
+                                                    </span>
+
+                                                {% endif %}
+
+                                                
                                             </td>
 
                                             <td>

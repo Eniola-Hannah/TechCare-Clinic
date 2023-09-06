@@ -75,8 +75,6 @@ class EditBooksService_form(forms.ModelForm):
             'resident_',
             'approved_date',
             'approved_time',
-            'served',
-            'patient_status',
             'doctor_remark',
         ]
 
@@ -90,7 +88,12 @@ class EditBooksService_form(forms.ModelForm):
 
 
 class MedicalReportForm(forms.ModelForm):
+    service_list = []
+    for service in Service.objects.all():
+        service_list.append((service.service_id, service.service_option))
 
+    service_name = forms.ChoiceField(choices=service_list)
+    description = forms.CharField(label="Treatment/Service Report", widget=forms.Textarea(attrs={'cols':60, 'row':3}))
     class Meta:
         model = PatientMedicalHistory
         fields = [
@@ -103,8 +106,8 @@ class MedicalReportForm(forms.ModelForm):
         ]
 
         widgets = {
-            'approved_date': forms.NumberInput(attrs={'type':'date'}),
-            'approved_time': forms.NumberInput(attrs={'type':'time'}),
-            'description': forms.Textarea(attrs={'cols':60, 'row':3}),
+            'next_approved_date': forms.NumberInput(attrs={'type':'date'}),
+            'next_approved_time': forms.NumberInput(attrs={'type':'time'}),
+            # 'description': forms.Textarea(attrs={'cols':60, 'row':3}),
             'doctor_remark': forms.Textarea(attrs={'cols':60, 'row':3}),
         }

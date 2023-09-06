@@ -24,7 +24,15 @@
                                 <header class="card-header">
                                     <p class="card-header-title">
                                         <span class="icon"><i class="mdi mdi-account"></i>
-                                            Patient ID: TCH-0{{detail.user.id}} <hr>
+                                            Patient ID: TCH-0{{detail.user.id}} 
+                                            <div style="margin-left: 300px;">
+                                                <a href="{% url 'my_booking' detail.user_id %}">
+                                                    <span style="color: #0e399c; margin-right:50px;" class="font-weight-bold">
+                                                        Booking History
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <hr>
                                             Date Created: {{detail.date_created}}
                                         </span>   
                                     </p>

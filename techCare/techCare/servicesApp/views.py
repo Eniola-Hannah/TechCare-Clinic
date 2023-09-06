@@ -205,7 +205,32 @@ def editBooking(request, book_id):
 
 @login_required
 def declineBooking(request, book_id):
-    pass
+    if request.method == "POST":
+        booking = get_object_or_404(BookingService, booking_id=book_id)
+        booking_form = AcceptBooksService_form(request.POST, instance=booking)
+        if booking_form.is_valid():
+            booking_form.save()
+
+
+            # Confirmation Mail to the HOD
+            send_mail(
+                'Your referred patient was declined',
+                f'Dear HOD, Dr. {booking.consultant_doctor.first_name}, declined the patient named {booking.user.first_name} you refer to him/her. see your booking details for more information or click on the <a href="http://127.0.0.1:8000/servicesApp/view_booking_detail/{booking.user_id}">booking</a>. Thanks \n http://127.0.0.1:8000/servicesApp/view_booking_detail/{booking.user_id}',
+                'heniolahannah@gmail.com', #sender
+                [booking.hod.email],
+                fail_silently=False, #Handles any error
+            )
+
+            messages.success(request, ('Booking edited successfully'))
+            return HttpResponsePermanentRedirect(reverse('view_booking_detail', args=(book_id,)))
+        else:
+            messages.success(request, ('Please correct the error below'))
+            return HttpResponsePermanentRedirect(reverse('edit_booking', args=(book_id,)))
+        
+    else:
+        booking = get_object_or_404(BookingService, booking_id=book_id)
+        booking_form = AcceptBooksService_form(instance=booking)
+        return render(request, 'servicesApp/edit_booking_service_form.html', {'booking_form':booking_form})
 
 @login_required
 def medicalHistory(request, user):
@@ -218,8 +243,11 @@ def medicalReport(request, user):
         medical_form = MedicalReportForm(request.POST)
         if medical_form.is_valid():
             medical_history = medical_form.save(commit=False)
-            medical_history.user = user
-        return medicalHistory(request)
+            medical_history.user_id = user
+            medical_history.approved_doctor_id = request.user.id
+            medical_history.service_id = medical_form.cleaned_data["service_name"]
+            medical_history.save()
+        return medicalHistory(request, user)
         
     else:
         medical_form = MedicalReportForm()
