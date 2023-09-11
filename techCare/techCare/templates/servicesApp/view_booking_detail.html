@@ -3,7 +3,51 @@
 {% load static %}
 {% block body_content %}
 <script src="https://checkout.flutterwave.com/v3.js"></script>
+<script>
+    function makePayment() {
+        let amount = document.getElementById("amount").innerHTML.trim()
+        let email = document.getElementById("email").innerHTML.trim()
+        let phone = document.getElementById("phone").innerHTML.trim()
+        let first_name = document.getElementById("fname").innerHTML.trim()
+        let user_id = document.getElementById("user_id").innerHTML.trim()
+        let success_url = document.getElementById("success_url").innerHTML.trim()
+        let fails_url = document.getElementById("fails_url").innerHTML.trim()
+    }
 
+    FlutterwaveCheckout({
+    public_key: "FLWPUBK_TEST-7949adab7d3480ae5627cffe8efe59c7-X",
+    tx_ref: "techCare-48981487343MDI0NzMx",
+    amount: amount,
+    currency: "NGN",
+    payment_options: "card, banktransfer, ussd",
+    redirect_url: success_url,
+
+    meta: {
+      consumer_id: user_id,
+      consumer_mac: "92a3-912ba-1192a",
+    },
+
+    customer: {
+      email: email,
+      phone_number: phone,
+      name: first_name,
+    },
+
+    customizations: {
+      title: "TechCare Clinic",
+      description: "Payment for a service booking",
+      logo: "https://www.logolynx.com/images/logolynx/22/2239ca38f5505fbfce7e55bbc0604386.jpeg",
+    },
+
+    onclose: function(incomplete) {
+        if (incomplete === true) {
+          window.location = fails_url
+        }
+    }
+
+  });
+
+</script>
     
    <div>
         <div class="row">
