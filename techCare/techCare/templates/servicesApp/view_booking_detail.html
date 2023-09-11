@@ -8,6 +8,39 @@
             <div class="col-3"></div>
                 <div class="col-md-6 col-12 col-offset-3">
                     
+                    <div class="d-flex justify-content-center">
+
+                        <div class="form-submit" id="email" style="display: none;">
+                            {{email}}
+                        </div>
+
+                        <div class="form-submit" id="amount" style="display: none;">
+                            {{price}}
+                        </div>
+
+                        <div class="form-submit" id="phone" style="display: none;">
+                            {{phone}}
+                        </div>
+
+                        <div class="form-submit" id="fname" style="display: none;">
+                            {{first_name}}
+                        </div>
+
+                        <div class="form-submit" id="user_id" style="display: none;">
+                            {{user_id}}
+                        </div>
+
+                        <div class="form-submit" id="success_url" style="display: none;">
+                            {% url 'payment_success' book_id %}
+                        </div>
+
+                        <div class="form-submit" id="fails_url" style="display: none;">
+                            {% url 'payment_fails' book_id %}
+                        </div>
+
+                    </div>
+
+                    
                     <p><span class="date text-pink text-size-30px mt-5">
                         {% if messages %}
                             {% for message in messages %}
@@ -182,17 +215,19 @@
 
                                     {% endif %}
                                 
-                                {% else %}
-                                    <div class="control">
-
-                                        <a href="{% url 'book_payment' detail.booking_id %}">
-                                            <button type="submit" class="btn btn-sm btn-primary">
-                                                Make Payment
-                                            </button>
-                                        </a>
-
-                                    </dv>
+                                {% comment %} {% else %} {% endcomment %}
                                 {% endif %}
+
+
+                                <div class="control">
+
+                                    <a href="{% url 'book_payment' detail.booking_id %}">
+                                        <button type="submit" class="btn btn-sm btn-primary">
+                                            Make Payment
+                                        </button>
+                                    </a>
+
+                                </dv>
                             </div>
                                     
                         {% endfor %}

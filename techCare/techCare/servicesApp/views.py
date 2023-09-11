@@ -118,7 +118,14 @@ def patientBooking(request, user):
 @login_required
 def viewBookingDetail(request, book_id):
     my_booking = BookingService.objects.filter(booking_id=book_id)
-    return render(request, "servicesApp/view_booking_detail.html", {"my_booking": my_booking})
+    email = my_booking[0].user.email
+    price = my_booking[0].price
+    return render(request, "servicesApp/view_booking_detail.html", {
+        "my_booking": my_booking,
+        "email": email,
+        "price":price,
+        "book_id": my_booking[0].booking_id
+        })
 
 
 @login_required
