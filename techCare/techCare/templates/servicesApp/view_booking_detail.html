@@ -2,7 +2,7 @@
 {% block title %} Booking Details {% endblock title %}
 {% load static %}
 {% block body_content %}
-<script src="https://checkout.flutterwave.com/v3.js"></script>
+<script src="https://js.paystack.co/v1/inline.js"></script>
 <script>
     function makePayment() {
 
@@ -14,39 +14,29 @@
         let success_url = document.getElementById("success_url").innerHTML.trim();
         let fails_url = document.getElementById("fails_url").innerHTML.trim();
     
-
-        FlutterwaveCheckout({
-            public_key: "FLWPUBK_TEST-7949adab7d3480ae5627cffe8efe59c7-X",
-            tx_ref: "techCare-48981487343MDI0NzMx",
-            amount: amount,
-            currency: "NGN",
-            payment_options: "card, banktransfer, ussd",
-            redirect_url: success_url,
-
-            meta: {
-            consumer_id: user_id,
-            consumer_mac: "92a3-912ba-1192a",
-            },
-
-            customer: {
+        var handler = PaystackPop.setup({
+            key: 'pk_test_65a8fbe701605f50238c178ba8df3e0eaf9498c6',
             email: email,
-            phone_number: phone,
-            name: first_name,
+            amount: amount *100,
+            ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+            metadata: {
+               custom_fields: [
+                  {
+                      display_name: "Mobile Number",
+                      variable_name: "mobile_number",
+                      value: "+2348012345678"
+                  }
+               ]
             },
-
-            customizations: {
-            title: "TechCare Clinic",
-            description: "Payment for a service booking",
-            logo: "https://www.logolynx.com/images/logolynx/22/2239ca38f5505fbfce7e55bbc0604386.jpeg",
+            callback: function(response){
+                alert('success. transaction ref is ' + response.reference);
             },
-
-            onclose: function(incomplete) {
-                if (incomplete === true) {
-                window.location = fails_url
-                }
+            onClose: function(){
+                alert('window closed');
             }
-
-        });
+          });
+          handler.openIframe();
+     
     }
 
 </script>
